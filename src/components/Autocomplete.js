@@ -2,13 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 
-function TransitionItem({result, selectName}) {
+function TransitionItem({result, selectName, ...props}) {
+  console.log(props)
   const nodeRef = useRef();
   return (
     <CSSTransition
       nodeRef={nodeRef}
       classNames="result"
       timeout={{ enter: 500, exit: 300 }}
+      {...props}
     > 
        <li ref={nodeRef} className="nameLi" onClick={selectName}>
           {result}
