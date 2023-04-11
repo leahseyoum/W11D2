@@ -1,6 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
+
+function TransitionItem({result, selectName}) {
+  const nodeRef = useRef();
+  return (
+    <CSSTransition
+      nodeRef={nodeRef}
+      classNames="result"
+      timeout={{ enter: 500, exit: 300 }}
+    > 
+       <li ref={nodeRef} className="nameLi" onClick={selectName}>
+          {result}
+        </li>
+    </CSSTransition>
+  )
+}
+
 function Autocomplete({ names }) {
   const [inputVal, setInputVal] = useState('');
   const [showList, setShowList] = useState(false);
@@ -56,18 +72,15 @@ function Autocomplete({ names }) {
 
  
     const results = matches().map((result) => {
-    const nodeRef = React.createRef();
+    
       return (
-        <CSSTransition
-          nodeRef={nodeRef}
+        <TransitionItem
+          result={result}
+          selectName={selectName}
           key={result}
-          classNames="result"
-          timeout={{ enter: 500, exit: 300 }}
         >
-          <li ref={nodeRef} className="nameLi" onClick={selectName}>
-            {result}
-          </li>
-        </CSSTransition>
+
+        </TransitionItem>
       )
     });
 
